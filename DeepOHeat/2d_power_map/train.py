@@ -47,7 +47,7 @@ domain_0 = dict(
 domains_list = [domain_0]
 global_params = {
     "loss_fun_type": "norm",
-    "num_params_per_epoch": 50,
+    "num_params_per_epoch": 5,  # 本地测试，50改为5
     "pde_params": dict(type="pde", params=dict(k=0.2, weight=1)),
 }
 
@@ -56,7 +56,7 @@ print("Starting training DeepOHeat: arbitrary 2D power map")
 for i, domain in enumerate(domains_list):
     print("domain %d:" % i, domain)
 
-device = "cuda:3"
+device = "cpu"  # 本地测试，改为cpu
 model = modules.DeepONet(
     trunk_in_features=3,
     trunk_hidden_features=128,
@@ -89,12 +89,12 @@ loss_fn = loss_fun_deeponet.mesh_loss_fun_geometry_init(dataset)
 val_func = training_deeponet.val_fn_init(False)
 
 root_path = "./log"
-experiment_name = "experiment_1"
+experiment_name = "experiment_2"  # 本地测试，experiment_1改为experiment_2
 model_dir = os.path.join(root_path, experiment_name)
 lr_decay = True
 epochs_til_decay = 500
 epochs_til_val = 50
-epochs = 10000
+epochs = 100  # 本地测试，10000改为100
 lr = 1e-3
 epochs_til_checkpoints = 1000
 
