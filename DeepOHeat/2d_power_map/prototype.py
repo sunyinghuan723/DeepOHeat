@@ -45,13 +45,13 @@ domain_0 = dict(
 domains_list = [domain_0]
 global_params = {
     "loss_fun_type": "norm",
-    "num_params_per_epoch": 50,
+    "num_params_per_epoch": 5,  # 本地测试，50改为5
     "pde_params": dict(type="pde", params=dict(k=0.2, weight=1)),
 }
 
 print("Evaluating the DeepOHeat prototype: inference on given power map files")
 
-device = "cuda:3"
+device = "cpu"  # 本地测试，改为cpu
 model = modules.DeepONet(
     trunk_in_features=3,
     trunk_hidden_features=128,
@@ -80,8 +80,8 @@ mesh = dataio_utils.fixed_mesh_grid_3d(
 )
 
 root_path = "./log"
-experiment_name = "experiment_1"
-epoch = 10000
+experiment_name = "experiment_2"  # 本地测试，experiment_1改为experiment_2
+epoch = 100  # 本地测试，10000改为100
 model_dir = os.path.join(
     root_path, experiment_name, "checkpoints", "model_epoch_{}.pth".format(epoch)
 )
